@@ -22,27 +22,27 @@ Modifica la gramática corrigiendo los errores que veas, de manera que genere fr
               "if" <parenthesis> <block> ("else" "if" <block>)* ('else' <block>)? |
               "while" <parenthesis> <block> |
               'function' <word> '(' <word> (',' <word>)* ')' <block> |
-              <asig> ";"
+              <expr> ";"
               
 <declaration> ::= 'var' WORD ('=' <expr>)?
 
-<asig> ::= (<leftVal> '=')* <expr>
+<expr> :: (<leftVal> '=')* <comp>
 
-<leftVal> ::= WORD ('.' WORD | '[' <expr> ']')*
+<leftVal> ::= WORD (. WORD | '[' <expr> ']')*
 
-<expr> ::= <term> (('==', '!=', '>', '>=', '<', '<=') <term>)*
+<comp> ::= <term> (('==', '!=', '>', '>=', '<', '<=') <term>)*
 
 <term> ::= <sum> (('+', '-') <sum>)*
 
-<sum> ::= <fact> (('*', '/') <fact>)*
-
-<fact> ::= <value> | <word> <apply> | <parenthesis> | <array> // Added by: Casiano
+<sum> ::= <value> (('*', '/') <value>)*
 
 <apply> ::= '(' <expr> (',' <expr>)* ')'<apply> | '.'<word><apply> | empty
 
 <array> ::= '[' ']' | '[' <expr> (',' <expr> )*] // Added by Casiano
 
 <parenthesis> ::= '(' <expr> ')'
+
+<value> ::= (VALUE | WORD | <array> | <parenthesis>) (. WORD | '[' <expr> ']' | <apply>)*
 ```
 
 ## Tokens
